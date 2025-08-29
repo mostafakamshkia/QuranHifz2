@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>روضة القرآن | للأطفال</title>
+
+  <!-- خطوط عربية لطيفة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #FFF8F1;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #FFD166;
+      /* أصفر مبهج */
+      --boy: #5CB8E4;
+      /* أزرق ولادي */
+      --girl: #FF7B9C;
+      /* وردي بناتي */
+      --primary: #6C63FF;
+      /* بنفسجي لطيف */
+      --ring: rgba(108, 99, 255, .25);
+      --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 500px at 100% -10%, #FFE0EA 0%, transparent 70%),
+        radial-gradient(900px 400px at -10% 0%, #E2F4FF 0%, transparent 60%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      width: min(1100px, 94vw);
+      margin: 0 auto;
+      padding: 24px 0 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), #FFAE56);
+      display: grid;
+      place-items: center;
+      color: #7c4c00;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    .brand h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero {
+      margin: 18px 0 10px;
+      padding: 22px;
+      background: linear-gradient(135deg, rgba(92, 184, 228, .12), rgba(255, 123, 156, .12));
+      border: 1px solid rgba(0, 0, 0, .06);
+      border-radius: 18px;
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .hero h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      margin-top: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(0, 0, 0, .05);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* اختيار ولد/بنت */
+    .gender-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .gender-card {
+      position: relative;
+      cursor: pointer;
+      border-radius: 16px;
+      padding: 16px;
+      isolation: isolate;
+      border: 2px solid transparent;
+      transition: .25s ease;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 92px;
+      overflow: hidden;
+    }
+
+    .gender-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, .08);
+    }
+
+    .gender-card.active {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 6px var(--ring), var(--shadow);
+    }
+
+    .gender-card .icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 34px;
+      color: #fff;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .gender-card.boy {
+      background: linear-gradient(135deg, rgba(92, 184, 228, .12), #fff);
+    }
+
+    .gender-card.boy .icon {
+      background: linear-gradient(135deg, var(--boy), #3aa2cf);
+    }
+
+    .gender-card.girl {
+      background: linear-gradient(135deg, rgba(255, 123, 156, .12), #fff);
+    }
+
+    .gender-card.girl .icon {
+      background: linear-gradient(135deg, var(--girl), #ff6289);
+    }
+
+    .gender-card .txt b {
+      display: block;
+      font-size: 18px;
+    }
+
+    .gender-card .txt small {
+      color: var(--muted);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    /* اختيار الجزء */
+    .juz-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .juz-card {
+      cursor: pointer;
+      border-radius: 16px;
+      padding: 16px;
+      border: 2px solid rgba(0, 0, 0, .06);
+      background: #fff;
+      transition: .25s ease;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .juz-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .juz-card.active {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 6px var(--ring), var(--shadow);
+    }
+
+    .juz-card .bubble {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .juz-card.amma .bubble {
+      background: linear-gradient(135deg, #00C2A8, #00A38F);
+    }
+
+    .juz-card.tabarak .bubble {
+      background: linear-gradient(135deg, #FF8C42, #FF6A00);
+    }
+
+    /* فهرس السور */
+    .surah-wrap {
+      margin-top: 6px;
+    }
+
+    .surah-info {
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .surah-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .surah-tile {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, .06);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: .2s ease;
+      position: relative;
+      min-height: 56px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .surah-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .surah-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #6C63FF, #4F46E5);
+      flex: 0 0 36px;
+    }
+
+    .surah-name {
+      font-weight: 700;
+    }
+
+    .surah-tile small {
+      color: var(--muted);
+    }
+
+    /* الاختبارات */
+    .quiz-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: linear-gradient(135deg, rgba(108, 99, 255, .08), rgba(0, 194, 168, .08));
+      border: 1px solid rgba(0, 0, 0, .06);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), #4F46E5);
+      color: #fff;
+      box-shadow: var(--shadow);
+      transition: .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    /* فوتر */
+    footer {
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* ريسبونسف */
+    @media (max-width: 700px) {
+
+      .gender-grid,
+      .juz-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* حركة أقل لاحترام الوصول */
+    @media (prefers-reduced-motion: reduce) {
+      .gender-card .icon {
+        animation: none;
+      }
+
+      .gender-card:hover,
+      .juz-card:hover,
+      .surah-tile:hover,
+      .btn:hover {
+        transform: none;
+      }
+    }
+
+    /* توست بسيط */
+    .toast {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      left: 18px;
+      margin: auto;
+      width: fit-content;
+      max-width: 90vw;
+      background: #111827;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: .25s ease;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">📗</div>
+        <div>
+          <h1>روضة القرآن</h1>
+          <p>تعلم ممتع للأطفال — صور، تلاوة، واختبارات بسيطة</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h2>مرحباً 👋</h2>
+        <p>اختَر هل الطفل ولد أم بنت، ثم اختَر الجزء، وبعدها اضغط على السورة للانتقال إليها.</p>
+      </div>
+      <div>
+        <button class="btn secondary" onclick="scrollToIndex()">الذهاب لفهرس السور</button>
+      </div>
+    </section>
+
+    <!-- 1) اختيار ولد/بنت -->
+    <section class="card">
+      <div class="section-title">
+        <h3>1) اختيار الطفل</h3>
+        <span class="hint">ستُستخدم لتخصيص الصور لاحقاً</span>
+      </div>
+
+      <div class="gender-grid" role="group" aria-label="اختيار ولد أو بنت">
+        <div class="gender-card boy" id="genderBoy" tabindex="0" role="button" aria-pressed="false" aria-label="ولد">
+          <div class="icon" aria-hidden="true">👦</div>
+          <div class="txt">
+            <b>ولد</b>
+            <small>ألعاب وصور بطابع ولادي</small>
+          </div>
+        </div>
+
+        <div class="gender-card girl" id="genderGirl" tabindex="0" role="button" aria-pressed="false" aria-label="بنت">
+          <div class="icon" aria-hidden="true">👧</div>
+          <div class="txt">
+            <b>بنت</b>
+            <small>ألعاب وصور بطابع بناتي</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) اختيار الجزء -->
+    <section class="card">
+      <div class="section-title">
+        <h3>2) اختر الجزء</h3>
+        <span class="hint">جزء عم (٣٠) أو جزء تبارك (٢٩)</span>
+      </div>
+
+      <div class="juz-grid" role="group" aria-label="اختيار الجزء">
+        <div class="juz-card amma" id="juz30" tabindex="0" role="button" aria-pressed="false" data-juz="30">
+          <div class="bubble">30</div>
+          <div>
+            <b>جزء عم</b>
+            <div class="hint">من سورة النبأ إلى الناس</div>
+          </div>
+        </div>
+
+        <div class="juz-card tabarak" id="juz29" tabindex="0" role="button" aria-pressed="false" data-juz="29">
+          <div class="bubble">29</div>
+          <div>
+            <b>جزء تبارك</b>
+            <div class="hint">من سورة الملك إلى المرسلات</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) فهرس السور -->
+    <section class="card" id="indexSection">
+      <div class="section-title">
+        <h3>3) فهرس السور</h3>
+        <span class="hint">اضغط على اسم السورة للانتقال لصفحتها</span>
+      </div>
+
+      <div class="surah-wrap">
+        <p class="surah-info" id="surahInfo">اختر الجزء لعرض السور.</p>
+        <div class="surah-grid" id="surahGrid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- 4) خانة الاختبارات -->
+    <section class="card">
+      <div class="section-title">
+        <h3>4) خانة الاختبارات</h3>
+        <span class="hint">اختبارات مرنة (تتغير حسب الجزء والسورة)</span>
+      </div>
+
+      <div class="quiz-card">
+        <div>
+          <b>ابدأ اختباراً مناسباً لعمر الطفل 🎯</b>
+          <div class="hint">سيتم إنشاء أسئلة مختلفة كل مرة — اختر النوع والجزء ثم ابدأ.</div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" id="startQuizBtn">ابدأ الاختبار</button>
+          <button class="btn secondary" id="quizOptionsBtn">خيارات الاختبار</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      سيتم ربط هذه الصفحة بصفحات: السورة، والاختبارات لاحقاً. 👌
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // —— البيانات: السور لكل جزء ——
+    const JUZ_30 = [{
+      num: 78,
+      name: 'النبأ'
+    }, {
+      num: 79,
+      name: 'النازعات'
+    }, {
+      num: 80,
+      name: 'عبس'
+    }, {
+      num: 81,
+      name: 'التكوير'
+    }, {
+      num: 82,
+      name: 'الانفطار'
+    }, {
+      num: 83,
+      name: 'المطففين'
+    }, {
+      num: 84,
+      name: 'الانشقاق'
+    }, {
+      num: 85,
+      name: 'البروج'
+    }, {
+      num: 86,
+      name: 'الطارق'
+    }, {
+      num: 87,
+      name: 'الأعلى'
+    }, {
+      num: 88,
+      name: 'الغاشية'
+    }, {
+      num: 89,
+      name: 'الفجر'
+    }, {
+      num: 90,
+      name: 'البلد'
+    }, {
+      num: 91,
+      name: 'الشمس'
+    }, {
+      num: 92,
+      name: 'الليل'
+    }, {
+      num: 93,
+      name: 'الضحى'
+    }, {
+      num: 94,
+      name: 'الشرح'
+    }, {
+      num: 95,
+      name: 'التين'
+    }, {
+      num: 96,
+      name: 'العلق'
+    }, {
+      num: 97,
+      name: 'القدر'
+    }, {
+      num: 98,
+      name: 'البينة'
+    }, {
+      num: 99,
+      name: 'الزلزلة'
+    }, {
+      num: 100,
+      name: 'العاديات'
+    }, {
+      num: 101,
+      name: 'القارعة'
+    }, {
+      num: 102,
+      name: 'التكاثر'
+    }, {
+      num: 103,
+      name: 'العصر'
+    }, {
+      num: 104,
+      name: 'الهمزة'
+    }, {
+      num: 105,
+      name: 'الفيل'
+    }, {
+      num: 106,
+      name: 'قريش'
+    }, {
+      num: 107,
+      name: 'الماعون'
+    }, {
+      num: 108,
+      name: 'الكوثر'
+    }, {
+      num: 109,
+      name: 'الكافرون'
+    }, {
+      num: 110,
+      name: 'النصر'
+    }, {
+      num: 111,
+      name: 'المسد'
+    }, {
+      num: 112,
+      name: 'الإخلاص'
+    }, {
+      num: 113,
+      name: 'الفلق'
+    }, {
+      num: 114,
+      name: 'الناس'
+    }];
+
+    const JUZ_29 = [{
+      num: 67,
+      name: 'الملك'
+    }, {
+      num: 68,
+      name: 'القلم'
+    }, {
+      num: 69,
+      name: 'الحاقة'
+    }, {
+      num: 70,
+      name: 'المعارج'
+    }, {
+      num: 71,
+      name: 'نوح'
+    }, {
+      num: 72,
+      name: 'الجن'
+    }, {
+      num: 73,
+      name: 'المزمل'
+    }, {
+      num: 74,
+      name: 'المدثر'
+    }, {
+      num: 75,
+      name: 'القيامة'
+    }, {
+      num: 76,
+      name: 'الإنسان'
+    }, {
+      num: 77,
+      name: 'المرسلات'
+    }];
+
+    // —— عناصر DOM ——
+    const genderBoy = document.getElementById('genderBoy');
+    const genderGirl = document.getElementById('genderGirl');
+    const juz30 = document.getElementById('juz30');
+    const juz29 = document.getElementById('juz29');
+    const surahGrid = document.getElementById('surahGrid');
+    const surahInfo = document.getElementById('surahInfo');
+    const toast = document.getElementById('toast');
+    const startQuizBtn = document.getElementById('startQuizBtn');
+    const quizOptionsBtn = document.getElementById('quizOptionsBtn');
+
+    // —— حالة التطبيق ——
+    let currentGender = localStorage.getItem('childGender') || null; // 'boy' | 'girl'
+    let currentJuz = localStorage.getItem('currentJuz') ? parseInt(localStorage.getItem('currentJuz')) : null; // 29 | 30
+
+    // —— تهيئة واجهة —— 
+    init();
+
+    function init() {
+      // استرجاع الاختيار السابق إن وجد
+      if (currentGender === 'boy') setGender('boy', false);
+      if (currentGender === 'girl') setGender('girl', false);
+      if (currentJuz === 30) setJuz(30, false);
+      if (currentJuz === 29) setJuz(29, false);
+
+      // تفاعلات
+      genderBoy.addEventListener('click', () => setGender('boy', true));
+      genderGirl.addEventListener('click', () => setGender('girl', true));
+      genderBoy.addEventListener('keypress', (e) => e.key === 'Enter' && setGender('boy', true));
+      genderGirl.addEventListener('keypress', (e) => e.key === 'Enter' && setGender('girl', true));
+
+      juz30.addEventListener('click', () => setJuz(30, true));
+      juz29.addEventListener('click', () => setJuz(29, true));
+      juz30.addEventListener('keypress', (e) => e.key === 'Enter' && setJuz(30, true));
+      juz29.addEventListener('keypress', (e) => e.key === 'Enter' && setJuz(29, true));
+
+      startQuizBtn.addEventListener('click', startQuiz);
+      quizOptionsBtn.addEventListener('click', () => {
+        notify('سيتم إضافة خيارات تفصيلية للاختبارات لاحقاً 🎓');
+      });
+
+      // عرض افتراضي
+      if (!currentJuz) {
+        surahInfo.textContent = 'اختر الجزء لعرض السور.';
+      } else {
+        renderSurahIndex();
+      }
+    }
+
+    function setGender(g, notifyUser) {
+      currentGender = g;
+      localStorage.setItem('childGender', g);
+
+      genderBoy.classList.toggle('active', g === 'boy');
+      genderGirl.classList.toggle('active', g === 'girl');
+      genderBoy.setAttribute('aria-pressed', g === 'boy' ? 'true' : 'false');
+      genderGirl.setAttribute('aria-pressed', g === 'girl' ? 'true' : 'false');
+
+      if (notifyUser) notify(g === 'boy' ? 'تم اختيار: ولد 👦' : 'تم اختيار: بنت 👧');
+    }
+
+    function setJuz(j, notifyUser) {
+      currentJuz = j;
+      localStorage.setItem('currentJuz', j);
+
+      juz30.classList.toggle('active', j === 30);
+      juz29.classList.toggle('active', j === 29);
+      juz30.setAttribute('aria-pressed', j === 30 ? 'true' : 'false');
+      juz29.setAttribute('aria-pressed', j === 29 ? 'true' : 'false');
+
+      renderSurahIndex();
+      if (notifyUser) notify(j === 30 ? 'تم اختيار: جزء عم (30)' : 'تم اختيار: جزء تبارك (29)');
+    }
+
+    function renderSurahIndex() {
+      const data = currentJuz === 30 ? JUZ_30 : currentJuz === 29 ? JUZ_29 : null;
+      surahGrid.innerHTML = '';
+      if (!data) {
+        surahInfo.textContent = 'اختر الجزء لعرض السور.';
+        return;
+      }
+      surahInfo.textContent = currentJuz === 30 ? 'جزء عم — فهرس السور' : 'جزء تبارك — فهرس السور';
+
+      data.forEach(s => {
+        const tile = document.createElement('a');
+        tile.className = 'surah-tile';
+        tile.setAttribute('role', 'button');
+        tile.setAttribute('aria-label', `سورة ${s.name}`);
+        
+        // الرابط الفعلي للصفحة القادمة
+        const params = new URLSearchParams({
+          num: s.num,
+          juz: currentJuz || '',
+          gender: currentGender || ''
+        });
+        tile.href = `surah.html?${params.toString()}`;
+
+        tile.innerHTML = `
+          <div class="surah-num">${s.num}</div>
+          <div>
+            <div class="surah-name">${s.name}</div>
+            <small>اضغط للانتقال</small>
+          </div>
+        `;
+
+        tile.addEventListener('click', (e) => {
+          e.preventDefault(); // <--- هذا السطر يمنع الانتقال للصفحة
+
+          if (!currentJuz) {
+            notify('من فضلك اختر الجزء أولاً.');
+          } else {
+            // رسالة مؤقتة بدل الانتقال
+            notify(`جاري العمل على صفحة سورة ${s.name} 🚧`);
+          }
+        });
+
+        surahGrid.appendChild(tile);
+      });
+
+      document.getElementById('indexSection')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+
+    function startQuiz() {
+      if (!currentJuz || !currentGender) {
+        notify('اختر النوع (ولد/بنت) والجزء أولاً لبدء الاختبار.');
+        return;
+      }
+      
+      // رسالة مؤقتة بدل الانتقال لصفحة الاختبار
+      notify('صفحة الاختبارات هتكون جاهزة قريبًا إن شاء الله 🚀');
+
+      /*
+      // هذا الكود سيتم تفعيله لاحقًا عند إنشاء صفحة الاختبار
+      const params = new URLSearchParams({
+        juz: currentJuz,
+        gender: currentGender
+      });
+      window.location.href = `quiz.html?${params.toString()}`;
+      */
+    }
+
+    function notify(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(notify._t);
+      notify._t = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function scrollToIndex() {
+      document.getElementById('indexSection')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  </script>
+</body>
+</html>
