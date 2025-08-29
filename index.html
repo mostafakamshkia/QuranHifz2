@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#4EA3FF" />
+  <title>صغار القرآن - الصفحة الرئيسية</title>
+
+  <!-- خط عربي مناسب للأطفال -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#F8FAFF; --primary:#4EA3FF; --primary-2:#7BC8FF;
+      --pink:#FF6B9A; --yellow:#FFD166; --green:#00BFA6;
+      --text:#0A2240; --soft:#E9F3FF; --card:#FFFFFF;
+      --shadow:0 10px 25px rgba(0,0,0,.08); --radius:20px;
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Tajawal","Cairo",sans-serif;
+      background: radial-gradient(1000px 600px at 10% -10%, #EAF4FF, transparent 60%),
+                  radial-gradient(800px 500px at 110% 10%, #FFF5F7, transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+    .top-nav{
+      position:sticky; top:0; z-index:20;
+      background:rgba(255,255,255,.75);
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid #eef3ff;
+    }
+    .nav-inner{
+      max-width:1100px; margin:auto; padding:10px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; font-size:18px;
+      color:#114B8C;
+    }
+    .logo .badge{
+      width:36px; height:36px; border-radius:12px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:#fff; box-shadow: var(--shadow);
+      font-size:20px;
+    }
+    .nav-links a{
+      color:#1a365d; text-decoration:none;
+      font-weight:700; padding:8px 12px; border-radius:12px;
+    }
+    .nav-links a:hover{ background:#eef6ff }
+
+    main{ max-width:1100px; margin:0 auto; padding:20px 16px 80px }
+
+    .hero{
+      display:grid; grid-template-columns:1.1fr .9fr; gap:24px;
+      align-items:center; margin:24px 0 10px;
+    }
+    @media (max-width: 900px){ .hero{ grid-template-columns:1fr; } }
+    .hero-card{
+      background:#fff; border-radius:24px;
+      box-shadow: var(--shadow); padding:24px;
+      position:relative; overflow:hidden;
+    }
+    .hero h1{ font-size:28px; margin:0 0 6px; }
+    .hero p{ margin:0 0 18px; color:#365271; }
+    .gender-wrap{ display:flex; gap:14px; flex-wrap:wrap; }
+    .gender-card{
+      flex:1 1 220px; background:var(--card); border-radius:20px;
+      border:2px dashed #e2ecff; padding:14px; text-align:center;
+      cursor:pointer; transition:.25s transform;
+    }
+    .gender-card:hover{ transform: translateY(-4px); background:#fff; }
+    .gender-emoji{
+      width:82px; height:82px; border-radius:50%; margin:6px auto 8px;
+      display:grid; place-items:center;
+      color:#fff; font-size:40px; box-shadow: var(--shadow);
+    }
+    .boy .gender-emoji{ background: linear-gradient(135deg, #4EA3FF, #7BC8FF);}
+    .girl .gender-emoji{ background: linear-gradient(135deg, #FF6B9A, #FF92B3);}
+    .gender-title{ font-weight:800; font-size:18px; margin-bottom:4px; }
+    .gender-hint{ color:#5f789c; font-size:14px; }
+
+    .section{
+      background:#fff; border-radius:24px;
+      box-shadow: var(--shadow); padding:18px; margin-top:18px;
+    }
+    .section h2{ font-size:22px; margin:0 0 12px }
+    .chips{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+    .chip{
+      background:#eef6ff; color:#114B8C; border:none;
+      border-radius:999px; padding:8px 14px;
+      font-weight:700; cursor:pointer;
+    }
+    .chip.active{ background:linear-gradient(135deg, var(--primary), var(--primary-2)); color:#fff; }
+
+    .surah-grid{
+      display:grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap:10px; margin-top:10px;
+    }
+    .surah-btn{
+      background:#fff; border:1px solid #e9f0ff; border-radius:16px;
+      padding:10px; display:flex; gap:8px; align-items:center;
+      cursor:pointer; text-align:right;
+    }
+    .num{
+      min-width:34px; height:34px; border-radius:10px;
+      background:#eef6ff; display:grid; place-items:center;
+      font-weight:800; color:#114B8C;
+    }
+    .sname{ font-weight:bold; color:#183a66 }
+    .tag{ font-size:12px; color:#6b7c94 }
+    .btn{
+      background:linear-gradient(135deg, var(--green), #17d6c0);
+      border-radius:12px; color:#fff;
+      font-weight:800; padding:12px 16px;
+      font-size:16px; border:none; cursor:pointer;
+    }
+    footer{ text-align:center; color:#6b7c94; font-size:13px; padding:20px 8px }
+  </style>
+</head>
+
+<body>
+  <nav class="top-nav" aria-label="التنقل الأعلى">
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="badge">🌙</div>
+        <span>صغار القرآن</span>
+      </div>
+      <div class="nav-links">
+        <a href="#choose">الاختيار</a>
+        <a href="#index">فهرس السور</a>
+        <a href="#tests">الاختبارات</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="choose" class="hero">
+      <div class="hero-card">
+        <h1>مرحبًا يا بطل!</h1>
+        <p>هل أنت ولد أم بنت؟ اختر علشان نجهز لك صور ورسومات مناسبة، ومعاها آيات.</p>
+        <div class="gender-wrap">
+          <button class="gender-card boy" data-gender="boy">
+            <div class="gender-emoji">👦</div>
+            <div class="gender-title">أنا ولد</div>
+            <div class="gender-hint">صور مناسبة للأولاد</div>
+          </button>
+          <button class="gender-card girl" data-gender="girl">
+            <div class="gender-emoji">👧</div>
+            <div class="gender-title">أنا بنت</div>
+            <div class="gender-hint">صور مناسبة للبنات</div>
+          </button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>📚 ملاحظات</h2>
+        <ul style="padding-right:20px; line-height:1.8">
+          <li>جزء عم وتبارك صور + آيات.</li>
+          <li>فهرس لاختيار السورة.</li>
+          <li>اختبارات ذكية وممتعة.</li>
+          <li>الصور والقرآن في صفحات تالية.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="index" class="section">
+      <h2>🔎 فهرس السور</h2>
+      <div class="chips">
+        <button class="chip active" data-juz="amma">جزء عم</button>
+        <button class="chip" data-juz="tabarak">جزء تبارك</button>
+      </div>
+      <div class="surah-grid" id="surahGrid"></div>
+    </section>
+
+    <section id="tests" class="section">
+      <h2>🧠 الاختبارات</h2>
+      <p>اختبارات ممتعة وسريعة للأطفال من سور القرآن الكريم.</p>
+      <button class="btn" id="goTests">ابدأ الآن</button>
+    </section>
+  </main>
+
+  <footer>صُنع بحُب للأطفال 🌟 — يمكنك إضافة صورك وألوانك الخاصة بسهولة.</footer>
+
+  <script>
+    const SURAH_DATA = {
+      amma: [ {n:78,name:"النبأ"}, {n:79,name:"النازعات"}, {n:80,name:"عبس"} ],
+      tabarak: [ {n:67,name:"الملك"}, {n:68,name:"القلم"}, {n:69,name:"الحاقة"} ]
+    };
+
+    const grid = document.getElementById('surahGrid');
+    const chips = document.querySelectorAll('.chip');
+    let current = 'amma';
+
+    function updateGrid(){
+      grid.innerHTML = '';
+      SURAH_DATA[current].forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'surah-btn';
+        btn.innerHTML = `<div class="num">${s.n}</div><div><div class="sname">${s.name}</div><div class="tag">${current}</div></div>`;
+        btn.onclick = () => {
+          alert('📖 سيتم نقلك لاحقًا إلى صفحة السورة: ' + s.name);
+        };
+        grid.appendChild(btn);
+      });
+    }
+
+    chips.forEach(c => {
+      c.onclick = () => {
+        chips.forEach(ch => ch.classList.remove('active'));
+        c.classList.add('active');
+        current = c.dataset.juz;
+        updateGrid();
+      };
+    });
+
+    // روابط التنقل
+    document.querySelectorAll('.gender-card').forEach(el => {
+      el.onclick = () => {
+        alert("🚧 الصفحة لم تُنشأ بعد! سيتم إضافتها قريبًا.");
+      }
+    });
+    document.getElementById('goTests').onclick = () => {
+      alert("🚧 اختبار بسيط - الصفحة لم تُنشأ بعد.");
+    }
+
+    updateGrid();
+  </script>
+</body>
+</html>
