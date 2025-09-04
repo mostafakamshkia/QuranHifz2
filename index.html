@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>وردد</title>
+  
+  <meta name="theme-color" content="#0f172a"/>
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --space-dark: #0f172a; --space-light: #1e293b; --text-light: #e2e8f0;
+      --text-muted: #94a3b8; --accent-glow: #facc15; --primary-glow: #a78bfa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    @keyframes stars-twinkle { 0% { background-position: 0 0; } 100% { background-position: -10000px 5000px; } }
+    body {
+      font-family: "Tajawal", system-ui, sans-serif; background-color: var(--space-dark);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Ccircle cx='50' cy='50' r='1'/%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3Ccircle cx='90' cy='90' r='1'/%3E%3Ccircle cx='10' cy='90' r='1'/%3E%3Ccircle cx='90' cy='10' r='1'/%3E%3Ccircle cx='30' cy='70' r='1'/%3E%3Ccircle cx='70' cy='30' r='1'/%3E%3C/g%3E%3C/svg%3E");
+      animation: stars-twinkle 200s linear infinite; color: var(--text-light); line-height: 1.6;
+    }
+    .container { width: min(1200px, 92vw); margin: 0 auto; padding: 32px 0 80px; }
+    .main-header { text-align: center; margin-bottom: 40px; }
+    .main-header h1 {
+      font-size: 42px; font-weight: 800;
+      background: linear-gradient(90deg, #38bdf8, #f472b6, var(--accent-glow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;
+    }
+    .main-header p { font-size: 18px; color: var(--text-muted); }
+    .control-panel {
+        background-color: var(--space-light); border: 1px solid #334155; border-radius: 24px;
+        padding: 24px; margin-bottom: 32px;
+    }
+    .control-panel h2 { font-size: 22px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .selector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .juz-card {
+        background: var(--space-dark); border: 1px solid #475569; border-radius: 16px; padding: 16px;
+        cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        display: flex; align-items: center; gap: 16px;
+    }
+    .juz-card:hover { transform: translateY(-4px); border-color: var(--accent-glow); }
+    .juz-card.amma.active { border-color: #2dd4bf; box-shadow: 0 0 15px #2dd4bf; }
+    .juz-card.tabarak.active { border-color: #fb923c; box-shadow: 0 0 15px #fb923c; }
+    .juz-icon { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; }
+    .juz-icon.amma { background: linear-gradient(135deg, #2dd4bf, #0d9488); }
+    .juz-icon.tabarak { background: linear-gradient(135deg, #fb923c, #f97316); }
+    .card-text b { display: block; font-size: 18px; color: var(--text-light); }
+    .card-text small { color: var(--text-muted); }
+    .surah-map { background-color: var(--space-light); border: 1px solid #334155; border-radius: 24px; padding: 24px; }
+    .surah-map-header { text-align: center; margin-bottom: 24px; }
+    .surah-map-header h2 { font-size: 24px; margin-bottom: 4px; }
+    .surah-map-header p { color: var(--text-muted); }
+    .surah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+    .surah-tile {
+        background: var(--space-dark); border: 1px solid #475569; border-radius: 16px; padding: 12px; text-decoration: none;
+        color: var(--text-light); transition: transform 0.2s ease, box-shadow 0.2s ease; text-align: center; cursor: pointer;
+    }
+    .surah-tile:hover { transform: translateY(-4px); box-shadow: 0 0 15px var(--primary-glow); }
+    .surah-tile .num { font-size: 28px; font-weight: 800; color: var(--accent-glow); line-height: 1; }
+    .surah-tile .name { font-size: 16px; font-weight: 700; }
+    @media (max-width: 800px) { .selector-grid { grid-template-columns: 1fr; } }
+    .toast {
+      position:fixed; bottom:20px; right:20px; left:20px; margin:auto; width:fit-content; max-width:90vw;
+      background: linear-gradient(135deg, var(--primary-glow), #38bdf8); color:#fff; padding:12px 18px; border-radius:12px;
+      opacity:0; transform: translateY(10px); transition: all .3s ease; pointer-events:none; z-index:99;
+      font-weight: 700; box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    }
+    .toast.show{ opacity:1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="main-header">
+      <h1>وردد 📖</h1>
+      <p>حدد وِردك، وابدأ رحلة النور مع القرآن</p>
+    </header>
+
+    <div class="control-panel">
+      <h2><span class="icon">📖</span> 1. حدد الجزء</h2>
+      <div class="selector-grid">
+        <div class="juz-card amma" id="juz30" tabindex="0" role="button" aria-pressed="false">
+          <div class="juz-icon amma">30</div>
+          <div class="card-text">
+            <b>جزء عمّ</b>
+            <small>من سورة النبأ إلى الناس</small>
+          </div>
+        </div>
+        <div class="juz-card tabarak" id="juz29" tabindex="0" role="button" aria-pressed="false">
+          <div class="juz-icon tabarak">29</div>
+          <div class="card-text">
+            <b>جزء تبارك</b>
+            <small>من سورة الملك إلى المرسلات</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="surah-map" id="surahMapSection">
+      <div class="surah-map-header">
+        <h2 id="surahInfoTitle">🗺️ 2. اختر السورة</h2>
+        <p id="surahInfoSubtitle">اختر جزءًا أولاً لعرض السور الخاصة به</p>
+      </div>
+      <div class="surah-grid" id="surahGrid"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script>
+    const JUZ_30 = [{num:78,name:'النبأ'},{num:79,name:'النازعات'},{num:80,name:'عبس'},{num:81,name:'التكوير'},{num:82,name:'الانفطار'},{num:83,name:'المطففين'},{num:84,name:'الانشقاق'},{num:85,name:'البروج'},{num:86,name:'الطارق'},{num:87,name:'الأعلى'},{num:88,name:'الغاشية'},{num:89,name:'الفجر'},{num:90,name:'البلد'},{num:91,name:'الشمس'},{num:92,name:'الليل'},{num:93,name:'الضحى'},{num:94,name:'الشرح'},{num:95,name:'التين'},{num:96,name:'العلق'},{num:97,name:'القدر'},{num:98,name:'البينة'},{num:99,name:'الزلزلة'},{num:100,name:'العاديات'},{num:101,name:'القارعة'},{num:102,name:'التكاثر'},{num:103,name:'العصر'},{num:104,name:'الهمزة'},{num:105,name:'الفيل'},{num:106,name:'قريش'},{num:107,name:'الماعون'},{num:108,name:'الكوثر'},{num:109,name:'الكافرون'},{num:110,name:'النصر'},{num:111,name:'المسد'},{num:112,name:'الإخلاص'},{num:113,name:'الفلق'},{num:114,name:'الناس'}];
+    const JUZ_29 = [{num:67,name:'الملك'},{num:68,name:'القلم'},{num:69,name:'الحاقة'},{num:70,name:'المعارج'},{num:71,name:'نوح'},{num:72,name:'الجن'},{num:73,name:'المزمل'},{num:74,name:'المدثر'},{num:75,name:'القيامة'},{num:76,name:'الإنسان'},{num:77,name:'المرسلات'}];
+
+    const juz30 = document.getElementById('juz30');
+    const juz29 = document.getElementById('juz29');
+    const surahGrid = document.getElementById('surahGrid');
+    const surahInfoTitle = document.getElementById('surahInfoTitle');
+    const surahInfoSubtitle = document.getElementById('surahInfoSubtitle');
+    const toast = document.getElementById('toast');
+
+    let currentJuz = localStorage.getItem('currentJuz') ? parseInt(localStorage.getItem('currentJuz')) : null;
+
+    function init() {
+      if (currentJuz) setJuz(currentJuz, false);
+      juz30.addEventListener('click', () => setJuz(30, true));
+      juz29.addEventListener('click', () => setJuz(29, true));
+      [juz30, juz29].forEach(el => {
+          el.addEventListener('keypress', (e) => e.key === 'Enter' && el.click());
+      });
+      renderSurahMap();
+    }
+
+    function setJuz(j, notifyUser) {
+      currentJuz = j;
+      localStorage.setItem('currentJuz', j);
+      juz30.classList.toggle('active', j === 30);
+      juz29.classList.toggle('active', j === 29);
+      if (notifyUser) notify(j === 30 ? 'تم تحديد: جزء عمّ 📖' : 'تم تحديد: جزء تبارك 📖');
+      renderSurahMap();
+      document.getElementById('surahMapSection')?.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    function renderSurahMap() {
+      const data = currentJuz === 30 ? JUZ_30 : currentJuz === 29 ? JUZ_29 : null;
+      surahGrid.innerHTML = '';
+      if (!data) {
+        surahInfoSubtitle.textContent = 'اختر جزءًا أولاً لعرض السور الخاصة به';
+        return;
+      }
+      surahInfoTitle.textContent = `سور جزء ${currentJuz === 30 ? 'عمّ' : 'تبارك'}`;
+      surahInfoSubtitle.textContent = 'اضغط على أي سورة لبدء رحلتك';
+      data.forEach(s => {
+        const tile = document.createElement('a');
+        tile.className = 'surah-tile';
+        tile.setAttribute('role', 'button');
+        tile.tabIndex = 0;
+        tile.innerHTML = `<div class="num">${s.num}</div><div class="name">${s.name}</div>`;
+        const launchSurahPage = () => {
+            const params = new URLSearchParams({ num: s.num, name: s.name });
+            window.location.href = `surah.html?${params.toString()}`;
+        };
+        tile.addEventListener('click', launchSurahPage);
+        tile.addEventListener('keypress', (e) => e.key === 'Enter' && launchSurahPage());
+        surahGrid.appendChild(tile);
+      });
+    }
+
+    function notify(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(notify._t);
+      notify._t = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+    
+    init();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW reg failed: ', err));
+      });
+    }
+  </script>
+</body>
+</html>

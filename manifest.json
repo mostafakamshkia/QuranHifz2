@@ -1,0 +1,21 @@
+{
+  "name": "وردد",
+  "short_name": "وردد",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "description": "تطبيق بسيط وممتع لمساعدة الأطفال على حفظ القرآن الكريم.",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/0f172a/facc15?text=📖",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://placehold.co/512x512/0f172a/facc15?text=📖",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
